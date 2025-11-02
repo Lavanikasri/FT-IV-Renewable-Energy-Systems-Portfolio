@@ -1,57 +1,176 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Activity 1 – Rooftop Solar PV System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;800&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 30px;
-      background: white;
-      color: #333;
+    :root{
+      --bg:#04111a;
+      --card:#071826;
+      --glow1:#00ffea;
+      --glow2:#7c6cff;
+      --muted:#9fb6c0;
     }
-    h2, h3 {
-      color: #0b3954;
+    *{box-sizing:border-box}
+    body{
+      margin:0; min-height:100vh; font-family:"Outfit",system-ui,Arial; color:#d9f7f1;
+      background:
+        radial-gradient(600px 300px at 10% 10%, rgba(124,108,255,0.04), transparent 12%),
+        linear-gradient(180deg,var(--bg), #03101a);
+      padding:28px;
     }
-    pre {
-      background-color: #f1f1f1;
-      padding: 15px;
-      border-radius: 8px;
-      white-space: pre-wrap;
-      font-family: monospace;
+
+    .wrap{
+      max-width:980px; margin:0 auto; border-radius:12px; padding:20px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.004));
+      border:1px solid rgba(255,255,255,0.02); box-shadow: 0 18px 50px rgba(3,6,12,0.7);
+    }
+
+    header{
+      display:flex; align-items:center; gap:14px; margin-bottom:14px;
+    }
+    header .title{ font-weight:800; font-size:20px; color:var(--glow2); }
+    header .sub{ color:var(--muted); font-size:13px; }
+
+    .diagram{
+      margin-top:18px; padding:20px; border-radius:12px; position:relative;
+      background: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(255,255,255,0.02));
+      border:1px solid rgba(124,108,255,0.04);
+      display:flex; gap:18px; align-items:center; justify-content:center; flex-wrap:wrap;
+      min-height:360px;
+    }
+
+    /* boxes */
+    .node {
+      width:170px; padding:14px; border-radius:10px; text-align:center; font-weight:700;
+      position:relative; color:#eaffff; letter-spacing:0.4px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      transition: transform .22s;
+    }
+    .node:hover{ transform: translateY(-8px) scale(1.02); box-shadow: 0 20px 40px rgba(124,108,255,0.06); }
+
+    .node .label{ display:block; font-size:13px; color:var(--muted); font-weight:600; margin-top:8px }
+
+    /* neon accent ribbons */
+    .node::before{
+      content:''; position:absolute; left:0; right:0; top:-2px; height:6px; border-radius:8px;
+      background: linear-gradient(90deg, rgba(124,108,255,0.18), rgba(0,255,234,0.12));
+      filter: blur(8px); opacity:0.8;
+    }
+
+    /* position groups */
+    .col {
+      display:flex; flex-direction:column; gap:18px; align-items:center;
+    }
+
+    /* connectors: pseudo elements with rotated lines */
+    .connector{
+      width:120px; height:2px; background: linear-gradient(90deg, rgba(124,108,255,0.35), rgba(0,255,234,0.35));
+      border-radius:2px; box-shadow: 0 0 18px rgba(0,255,234,0.06);
+    }
+
+    /* battery cluster special look */
+    .battery{
+      background: linear-gradient(180deg, rgba(10,20,26,0.6), rgba(6,12,16,0.4));
+      border-left:4px solid rgba(0,255,234,0.12);
+      width:210px;
+    }
+
+    /* inverter card */
+    .inverter{ width:200px; }
+
+    /* small glow pulse */
+    .pulse {
+      position:absolute; inset:auto; right:22px; bottom:22px; width:80px; height:80px; border-radius:50%;
+      background: radial-gradient(circle, rgba(0,255,234,0.06), transparent 30%); filter: blur(8px);
+      animation: pulse 2.8s infinite ease-in-out;
+    }
+    @keyframes pulse { 0%{ transform:scale(0.9); opacity:0.9 } 50%{ transform:scale(1.12); opacity:0.6 } 100%{ transform:scale(0.9); opacity:0.9 } }
+
+    /* description block */
+    .explain{ margin-top:18px; color:var(--muted); font-size:14px; line-height:1.6; }
+
+    /* responsive */
+    @media (max-width:880px){
+      .diagram{ min-height:520px; }
     }
   </style>
 </head>
 <body>
-  <h2>Rooftop Solar PV System (5 kW) with Storage & Grid Connection</h2>
-  <h3>Block Diagram</h3>
-  <pre>
-[Sunlight]
-     |
-[Solar PV Panels]
-     |
-[Charge Controller] -----> [Battery Bank]
-     |                     |
-[Inverter] ----------------|
-     |
-[AC Distribution Board]
-     |
-[Household Loads]
-     |
-[Grid Connection]
-  </pre>
-  <h3>Explanation</h3>
-  <p>
-    A rooftop solar photovoltaic (PV) system uses <strong>solar energy</strong> as its renewable source.
-    The PV panels convert sunlight into <strong>direct current (DC)</strong> electricity through the photovoltaic effect.
-    The generated DC is regulated by a <strong>charge controller</strong> that safely charges the <strong>battery bank</strong>,
-    which stores energy for nighttime use. The stored power or direct solar output is converted to
-    <strong>alternating current (AC)</strong> using an inverter, making it suitable for domestic loads.
-    The system also includes a <strong>grid connection</strong> that allows two-way power flow—exporting excess power
-    to the grid and importing power when solar energy is insufficient. This 5 kW setup supports a household’s energy
-    demand, reduces electricity costs, and promotes sustainable energy independence.
-  </p>
+  <div class="wrap">
+    <header>
+      <div style="width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--glow2),var(--glow1));display:flex;align-items:center;justify-content:center;font-weight:900;color:#02121a">PV</div>
+      <div>
+        <div class="title">Rooftop Solar PV System — 5 kW (Stylized)</div>
+        <div class="sub">System block diagram with neon-style nodes</div>
+      </div>
+    </header>
+
+    <section class="diagram" aria-hidden="false">
+      <div class="col" style="align-items:flex-start">
+        <div class="node" style="width:190px">
+          <div style="font-size:15px">☀️ Solar PV Panels</div>
+          <span class="label">DC Power from array</span>
+        </div>
+        <div class="connector" style="width:90px"></div>
+        <div class="node battery">
+          <div style="font-size:15px">🔋 Charge Controller</div>
+          <span class="label">MPPT / Battery safety</span>
+        </div>
+      </div>
+
+      <div style="width:36px; height:2px;"></div>
+
+      <div class="col" style="align-items:center">
+        <div class="node inverter">
+          <div style="font-size:15px">⚡ Inverter</div>
+          <span class="label">DC → AC conversion</span>
+        </div>
+
+        <div class="connector" style="width:160px"></div>
+
+        <div class="node" style="width:210px">
+          <div style="font-size:15px">⚙️ AC Distribution Board</div>
+          <span class="label">Loads / Metering</span>
+        </div>
+      </div>
+
+      <div style="width:18px;"></div>
+
+      <div class="col" style="align-items:flex-end">
+        <div class="node" style="width:170px">
+          <div style="font-size:15px">🏠 Household Loads</div>
+          <span class="label">Appliances, lights</span>
+        </div>
+
+        <div class="connector" style="width:90px"></div>
+
+        <div class="node" style="width:170px">
+          <div style="font-size:15px">🔌 Grid Connection</div>
+          <span class="label">Two-way export/import</span>
+        </div>
+      </div>
+
+      <div class="pulse" aria-hidden="true"></div>
+    </section>
+
+    <div class="explain">
+      <strong>Explanation:</strong> This rooftop PV system converts sunlight into DC through the solar panels. The controller optimizes and charges the battery bank while protecting the system. The inverter converts DC to AC for household consumption. Excess energy can flow back to the grid when available. The layout above is styled to emphasize flow and component grouping — panels → controller → inverter → distribution → loads/grid.
+    </div>
+  </div>
+
+  <script>
+    // listen for theme ping from parent (index) - simple example, not required
+    window.addEventListener('message', (ev) => {
+      if(ev.data && ev.data.type === 'theme'){
+        document.querySelector('.wrap').style.borderColor = 'rgba(124,108,255,0.08)';
+      }
+    });
+  </script>
 </body>
 </html>
+
